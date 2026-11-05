@@ -6,6 +6,19 @@ management:
     web:
       exposure:
         include: "*"  
+    jmx:
+      exposure:
+        # TODO: [Advisor] Strongly recommended to configure the `management.endpoints.jmx.exposure.include` to expose ONLY required information
+        include: "*"
   endpoint:
     health:
       show-details: always
+      # [Spring Advisor]: This property disables health-group-membership-validation with boot 3.1 for backwards compatible reasons, but the Spring team encourages to enable it.
+
+      validate-group-membership: false
+      probes:
+        # TODO [Advisor]: Liveness and readiness probes are now enabled by default in Spring Boot 4.0. If you do not need those probes, keep this property. Otherwise, delete this property to adopt the new defaults. See https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Migration-Guide#liveness-and-readiness-probes
+        enabled: false
+logging:
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss.SSS
